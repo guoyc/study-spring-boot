@@ -3,7 +3,8 @@ package com.gyc;
 import com.gyc.constants.HttpResultConstants;
 import com.gyc.controller.HelloWorldController;
 import com.gyc.controller.UserController;
-import com.gyc.dao.UserMapper;
+import com.gyc.dao.test.UserMapper;
+import com.gyc.dao.test2.UserMapperTest2;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +35,8 @@ public class StudySpringBootApplicationTests {
     private MockMvc userMvc;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserMapperTest2 userMapperTest2;
 
     @Test
     public void contextLoads() {
@@ -109,6 +112,12 @@ public class StudySpringBootApplicationTests {
         userMapper.addUser("1234");
         System.out.println(userMapper.getUserByName("1234").getName());
         System.out.println(userMapper.getAllUser().size());
+    }
+
+    @Test
+    public void testMuliDataSource() {
+        userMapper.addUser("test1");
+        userMapperTest2.addUser("test2");
     }
 
 }

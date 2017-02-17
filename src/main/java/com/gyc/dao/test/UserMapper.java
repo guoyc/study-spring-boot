@@ -1,4 +1,4 @@
-package com.gyc.dao;
+package com.gyc.dao.test;
 
 import com.gyc.bean.User;
 import org.apache.ibatis.annotations.Insert;
