@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.cache.annotation.CacheConfig;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @author yc.guo@zuche.com on 2017/2/17.
  */
 @Mapper
+@CacheConfig(cacheNames = "users")
 public interface UserMapper {
 
     @Select("SELECT id, name FROM user WHERE name = #{name}")

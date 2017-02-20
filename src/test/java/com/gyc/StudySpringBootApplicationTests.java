@@ -116,6 +116,8 @@ public class StudySpringBootApplicationTests {
     public void testMyBatis() {
         userMapper.addUser("1234");
         System.out.println(userMapper.getUserByName("1234").getName());
+        System.out.println(userMapper.getUserByName("123").getName());
+        System.out.println(userMapper.getUserByName("1234").getName());
         System.out.println(userMapper.getAllUser().size());
     }
 
