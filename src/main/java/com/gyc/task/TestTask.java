@@ -1,5 +1,7 @@
 package com.gyc.task;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
@@ -14,14 +16,15 @@ import java.util.concurrent.Future;
 public class TestTask {
 
     private static Random random = new Random();
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestTask.class);
 
     @Async
     public Future<String> doTaskOne() throws InterruptedException {
-        System.out.println("开始执行任务1");
+        LOGGER.info("开始执行任务1");
         long start = System.currentTimeMillis();
         Thread.sleep(random.nextInt(10000));
         String result = "任务1执行结束, 耗时：" + (System.currentTimeMillis() - start);
-        System.out.println(result);
+        LOGGER.info(result);
         return new AsyncResult<>(result);
     }
 
