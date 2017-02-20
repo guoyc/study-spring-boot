@@ -5,6 +5,7 @@ import com.gyc.controller.HelloWorldController;
 import com.gyc.controller.UserController;
 import com.gyc.dao.test.UserMapper;
 import com.gyc.dao.test2.UserMapperTest2;
+import com.gyc.task.TestTask;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.concurrent.Future;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -37,6 +40,8 @@ public class StudySpringBootApplicationTests {
     private UserMapper userMapper;
     @Autowired
     private UserMapperTest2 userMapperTest2;
+    @Autowired
+    private TestTask testTask;
 
     @Test
     public void contextLoads() {
@@ -118,6 +123,21 @@ public class StudySpringBootApplicationTests {
     public void testMuliDataSource() {
         userMapper.addUser("test1");
         userMapperTest2.addUser("test2");
+    }
+
+    @Test
+    public void testAsyncTask() throws InterruptedException {
+        long start = System.currentTimeMillis();
+        Future<String> task1 = testTask.doTaskOne();
+        Future<String> task2 = testTask.doTaskTwo();
+        for (;;) {
+            if (task1.isDone() && task2.isDone()) {
+                break;
+            }
+            Thread.sleep(100);
+        }
+
+        System.out.println("任务全部完成, 耗时：" + (System.currentTimeMillis() - start));
     }
 
 }
